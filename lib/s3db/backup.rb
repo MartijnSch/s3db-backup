@@ -29,8 +29,9 @@ module S3db
 
     def upload_encrypted_database_dump
       mysql_dump_file_name = "mysql-#{config.db['database']}-#{Time.now.strftime('%Y-%m-%d-%Hh%Mm%Ss')}.sql.gz.cpt"
-      s3 = RightAws::S3Interface.new(config.aws['aws_access_key_id'], config.aws['secret_access_key'])
-      s3.put("#{config.aws['bucket']}", "#{mysql_dump_file_name}", encrypted_file.open)
+      s3     = AWS::S3.new(access_key_id: config.aws['aws_access_key_id'], secret_access_key: config.aws['secret_access_key'])
+      bucket = s3.buckets[config.aws['bucket']]
+      obj    = bucket.objects.create("#{mysql_dump_file_name}", encrypted_file.open)
     end
   end
 end

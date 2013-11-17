@@ -25,7 +25,8 @@ module S3db
     end
 
     def open_s3_connection
-      @s3 = RightAws::S3Interface.new(config.aws['aws_access_key_id'], config.aws['secret_access_key'])
+      @s3 = AWS::S3.new(access_key_id: config.aws['aws_access_key_id'], secret_access_key: config.aws['secret_access_key'])
+      #@s3 = RightAws::S3Interface.new(config.aws['aws_access_key_id'], config.aws['secret_access_key'])
     end
 
     def choose_bucket
