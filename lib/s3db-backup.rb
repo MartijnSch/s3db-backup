@@ -1,4 +1,4 @@
-require "right_aws"
+require "aws-sdk"
 require "yaml"
 require "tempfile"
 require "s3db/backup"
